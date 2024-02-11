@@ -1,1 +1,1 @@
-**DEVONagent Pro Search**: Run the DEVONagent Pro Keyword (das) to search with different DEVONagentPro search sets.
+**DEVONagent Search**: Run the DEVONagent keyword (`das`) or set your own keyword to search with different DEVONagent search sets.
