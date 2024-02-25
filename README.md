@@ -9,3 +9,8 @@ Tested with Alfred 5.1.4.
 #### Molar Mass Calculator
 A Python 3 script that calculates the molar mass and mass fractions from an empirical formula.
 Tested with Alfred 5.1.4. and Python 3.11.7.
+
+#### PubChem Retrieval
+An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Service from 
+[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
+Tested with Alfred 5.1.4. 
