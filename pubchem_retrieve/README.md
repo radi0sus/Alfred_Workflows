@@ -20,7 +20,7 @@ An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Ser
 
 3.3 Select the InChIKey.
 
-
+![PubChem](images/1.png)
 
 4. Press `⏎` (Enter).
 
