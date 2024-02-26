@@ -1,6 +1,6 @@
 ### PubChem Retrieval
 An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Service from 
-[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
+[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds.
 
 1. Run the PubChem keyword (`pc`) or set your own keyword.
 
@@ -8,7 +8,7 @@ An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Ser
 
 *or*
 
-2.2 Type the InChIKey (format: XXXXXXXXXXXXXX-YYYYYYYYYY-Z).
+2.2 Type the `InChIKey` (format: XXXXXXXXXXXXXX-YYYYYYYYYY-Z).
 
 3.1 Select an entry suggestet by the PubChem Auto-Complete Search Service.    
 
@@ -18,17 +18,18 @@ An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Ser
 
 *or*
 
-3.3 Select the InChIKey.
+3.3 Select the `InChIKey`.
 
-![PubChem](images/1.png)
+![PubChem](images/1a.png)
 
 4. Press `⏎` (Enter).
 
-5. Select one or all of the properties (last entry, no. 10) or select the web page of the compound.
+5. Select one or all of the properties (last entry, no. 10) or select the web page of the compound (no. 9).
 
-![PubChem](images/2.png)    
-last entry: 
-![PubChem](images/3.png)
+![PubChem](images/2a.png)    
+last entry:
+
+![PubChem](images/3a.png)
 
 6. Press `⏎` (Enter) to copy the selected property or all properties (last entry, no. 10) to the clipboard or to open the web page.
 
