@@ -116,7 +116,7 @@ else
           | tr -d '"')
     # CAS for Alfred
     if [ -z "$CAS" ]; then
-        CAS="not found"ç
+        CAS="not found"
     fi
     casn=$(jq -n --arg cas "$CAS" '.title = $cas 
           | .subtitle = "CAS Number" 
