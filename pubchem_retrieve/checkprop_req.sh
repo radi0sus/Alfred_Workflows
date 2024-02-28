@@ -151,7 +151,7 @@ else
     if [ -z "$melp" ]; then
         melp="not found"
     else 
-        melp=$(echo "$melp" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+        melp=$(echo "$melp" | tr -d ',' | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
     fi
     # melting point for Alfred
     melp=$(jq -n --arg melp "$melp" '.title = $melp 
@@ -168,7 +168,7 @@ else
     if [ -z "$bolp" ]; then
         bolp="not found"
     else 
-        bolp=$(echo "$bolp" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+        bolp=$(echo "$bolp" | tr -d ',' | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
     fi
     # boiling point for Alfred
     bolp=$(jq -n --arg bolp "$bolp" '.title = $bolp 
