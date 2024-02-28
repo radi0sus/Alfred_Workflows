@@ -108,6 +108,7 @@ else
           | .arg = "https://pubchem.ncbi.nlm.nih.gov/compound/" + $cid 
           | .icon.path= "./images/temp.png" 
           | del(.PropertyTable)')
+########################## CAS ###########################################################
     # get CAS; for CAS 'pug_view' instead of 'pug rest' api
     CAS=$(curl -s https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/$cid/JSON?heading=CAS \
           | jq '.Record.Section[] 
@@ -122,7 +123,60 @@ else
           | .subtitle = "CAS Number" 
           | .arg = $cas 
           | .icon.path= "./images/temp.png"')
+########################## Experimental Properties########################################
+    expp=$(curl -s https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/$cid/JSON/?heading=Experimental+Properties)
+    # Density
+    dens=$(echo "$expp" \
+          | jq '.. 
+          | objects 
+          | select(.TOCHeading == "Density") 
+          | .Information[]?.Value?.StringWithMarkup[]?.String')
+    if [ -z "$dens" ]; then
+        dens="not found"
+    else 
+        dens=$(echo "$dens" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+    fi
+    # density for Alfred
+    dens=$(jq -n --arg dens "$dens" '.title = $dens 
+          | .subtitle = "Density (Densities)" 
+          | .arg = $dens 
+          | .icon.path= "./images/temp.png"')
+
+    # Melting Point
+    melp=$(echo "$expp" \
+          | jq '.. 
+          | objects 
+          | select(.TOCHeading == "Melting Point") 
+          | .Information[]?.Value?.StringWithMarkup[]?.String')
+    if [ -z "$melp" ]; then
+        melp="not found"
+    else 
+        melp=$(echo "$melp" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+    fi
+    # melting point for Alfred
+    melp=$(jq -n --arg melp "$melp" '.title = $melp 
+          | .subtitle = "Melting Point(s)"
+          | .arg = $melp 
+          | .icon.path= "./images/temp.png"')
           
+    # Boiling Point
+    bolp=$(echo "$expp" \
+          | jq '.. 
+          | objects 
+          | select(.TOCHeading == "Boiling Point") 
+          | .Information[]?.Value?.StringWithMarkup[]?.String')
+    if [ -z "$bolp" ]; then
+        bolp="not found"
+    else 
+        bolp=$(echo "$bolp" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+    fi
+    # boiling point for Alfred
+    bolp=$(jq -n --arg bolp "$bolp" '.title = $bolp 
+          | .subtitle = "Boiling Point(s)"
+          | .arg = $bolp 
+          | .icon.path= "./images/temp.png"')
+          
+########################## Safety ########################################################
     # get safety data with 'pug_view' 
     sfty=$(curl -s https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/$cid/JSON?heading=Safety+and+Hazards)
     
@@ -131,7 +185,7 @@ else
           | jq '.Record.Section[0] 
           | .Section[0] | .Section[0] 
           | .Information[0].Value.StringWithMarkup[].Markup[].Extra')
-    if [ -z "$pict" ]; then
+    if [ -z "$pict" ] || [[ "$pict" == *"CID"* ]]; then
         pict="not found"
     else
         pict=$(echo $pict | sed 's/ "/, /g' |  tr -d '"')
@@ -190,8 +244,45 @@ else
           | .subtitle = "GHS Precautionary Statement Codes" 
           | .arg = $psta 
           | .icon.path= "./images/temp.png"')
+          
+############################## CrystalStructures #########################################
+    # CCDC Numbers + COD Numbers
+    cnum=$(curl -s https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/$cid/JSON/?heading=Crystal+Structures)
+    # CCDC Numbers:  https://www.ccdc.cam.ac.uk/structures/ 
+    ccdc=$(echo "$cnum" | \
+       jq '.. 
+       | objects
+       | select(.TOCHeading == "CCDC Number") 
+       | .Information[]?.Value?.StringWithMarkup[]?.String')
+    if [ -z "$ccdc" ]; then
+        ccdc="not found"
+    else 
+        ccdc=$(echo "$ccdc" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+    fi
+    # CCDC Numbers for Alfred: https://www.ccdc.cam.ac.uk/structures/ 
+    ccdc=$(jq -n --arg ccdc "$ccdc" '.title = $ccdc 
+          | .subtitle = "Related CCDC Number(s)"
+          | .arg = $ccdc 
+          | .icon.path= "./images/temp.png"')
     
-    # all properties for clipboard
+    # COD Numbers
+    codn=$(echo "$cnum" | \
+       jq '.. 
+       | objects
+       | select(.TOCHeading == "COD Number") 
+       | .Information[]?.Value?.StringWithMarkup[]?.String')
+    if [ -z "$codn" ]; then
+        codn="not found"
+    else 
+        codn=$(echo "$codn" | tr '\n' ',' | tr -d '"' | sed 's/.$//' | sed 's/, */, /g')
+    fi
+    # COD Numbers for Alfred: https://www.crystallography.net/cod/search.html
+    codn=$(jq -n --arg codn "$codn" '.title = $codn 
+          | .subtitle = "Related COD Number(s)" 
+          | .arg = $codn 
+          | .icon.path= "./images/temp.png"')
+          
+################ all properties for clipboard ###########################################
     cname=$(echo "$name" | jq '.arg')
     cinam=$(echo "$inam" | jq '.arg')
     cmolf=$(echo "$molf" | jq '.arg')
@@ -201,21 +292,27 @@ else
     cismi=$(echo "$ismi" | jq '.arg')
     ccasn=$(echo "$casn" | jq '.arg')
     cowww=$(echo "$owww" | jq '.arg')
+    cdens=$(echo "$dens" | jq '.arg')
+    cmelp=$(echo "$melp" | jq '.arg')
+    cbolp=$(echo "$bolp" | jq '.arg')
     cpict=$(echo "$pict" | jq '.arg')
     chsta=$(echo "$hsta" | jq '.arg')
     cpsta=$(echo "$psta" | jq '.arg')
     csign=$(echo "$sign" | jq '.arg')
+    cccdc=$(echo "$ccdc" | jq '.arg')
+    ccodn=$(echo "$codn" | jq '.arg')
     allp=$(jq -n --arg name "$cname" --arg inam "$cinam" --arg molf "$cmolf" \
                  --arg molw "$cmolw" --arg emas "$cemas" --arg inci "$cinci" \
                  --arg ismi "$cismi" --arg casn "$ccasn" --arg owww "$cowww" \
+                 --arg dens "$cdens" --arg melp "$cmelp" --arg bolp "$cbolp"\
                  --arg pict "$cpict" --arg hsta "$chsta" --arg psta "$cpsta" \
-                 --arg sign "$csign" \
+                 --arg sign "$csign" --arg ccdc "$cccdc" --arg codn "$ccodn"\
                  '.title = "Copy all of the above to the clipboard" 
                 | .subtitle = $name 
-                | .arg = ["allprop",$name,$inam,$molf,$molw,$emas,$inci,$ismi,$casn,$owww,$pict,$sign,$hsta,$psta]
+                | .arg = ["allprop",$name,$inam,$molf,$molw,$emas,$inci,$ismi,$casn,$owww,$dens,$melp,$bolp,$pict,$sign,$hsta,$psta,$ccdc,$codn]
                 | .icon.path= "./images/temp.png"') 
     # build list of items
-    new_req="{\"items\": [ $name, $inam, $molf, $molw, $emas, $inci, $ismi, $casn, $owww, $pict, $sign, $hsta, $psta, $allp]}"
+    new_req="{\"items\": [ $name, $inam, $molf, $molw, $emas, $inci, $ismi, $casn, $owww, $dens, $melp, $bolp, $pict, $sign, $hsta, $psta, $ccdc, $codn, $allp]}"
 fi
 
 # show in Alfred
