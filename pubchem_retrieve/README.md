@@ -38,6 +38,8 @@ An image of the structure will be copied to the clipboard in all cases (except w
 
 If there are multiple CIDs for one named compound, only the first one will be used for property retrieval.
 
+All densities, melting points, boiling points, CCDC numbers, and COD numbers that are available are listed.
+
 The CAS number is selected from the first available entry in PubChem.
 
 Safety information is selected from the first available entry in PubChem.
