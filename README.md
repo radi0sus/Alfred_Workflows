@@ -14,3 +14,8 @@ Tested with Alfred 5.1.4. and Python 3.11.7.
 An Alfred Workflow that uses the PUG REST, PUG View and Auto-Complete Search Service from 
 [PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
 Tested with Alfred 5.1.4. 
+
+#### [PubChem Retrieval (v2)](https://github.com/radi0sus/Alfred_Workflows/tree/main/pubchem_retrieve2)
+An Alfred (v5.5 or higher) Workflow that uses the PUG REST, PUG View and Auto-Complete Search Service from 
+[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
+Tested with Alfred 5.5.
