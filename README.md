@@ -19,3 +19,7 @@ Tested with Alfred 5.1.4.
 An Alfred (v5.5 or higher) Workflow that uses the PUG REST, PUG View and Auto-Complete Search Service from 
 [PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
 Tested with Alfred 5.5.
+
+#### [FRITZ!Box Smart Home Check](https://github.com/radi0sus/Alfred_Workflows/tree/main/fritzbox_smart_home_check)
+An Alfred Workflow (v5.5 or higher) showing information about FRITZ!DECT Smart Home Devices.
+Gnuplot is required to generate charts. Tested with Alfred 5.5.
