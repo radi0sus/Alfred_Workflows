@@ -2,7 +2,7 @@
 
 An Alfred Workflow (v5.5 or higher) showing information about FRITZ!DECT Smart Home Devices.
 
-1. **Gnuplot** is required to generate charts. Install **gnuplot**, for instance, using **Homebrew**.
+1. 1. To generate charts, the installation of **gnuplot** is necessary, and **jq** is required as well. Install **gnuplot** and **jq**, for instance, using **Homebrew**.
 
 2. Configure the Workflow. Set the *Address*, *Username*, and *Password* of your FRITZ!Box, or provide this information in an external file.
 
