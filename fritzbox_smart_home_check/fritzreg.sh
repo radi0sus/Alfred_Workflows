@@ -189,6 +189,7 @@ gen_bar_chart2() {
     local ylabel=$5
     local fac=$(($6))
     local cbrange=$7
+    local yrange=$8
     
     local starttime=$(head -n 1 "$tmp_data" | awk '{print $1}')
     local endtime=$(tail -n 1 "$tmp_data" | awk '{print $1}')
@@ -204,8 +205,8 @@ gen_bar_chart2() {
         set timefmt '%d-%H:%M' 
         set format x '%H:%M'
         #set xtics rotate by -45
-        set yrange [:]
-        set xrange [:]
+        #set yrange [:]
+        #set xrange [:]
         set boxwidth 1 relative
         set style fill solid border -1
 
@@ -219,7 +220,10 @@ gen_bar_chart2() {
         set format y '%.1f'
         #unset ytics
         unset key
-        #set yrange [0.00001:*]
+        set autoscale yfix
+        set offset 0,0,1,1
+        #set yrange $yrange
+        #set yrange [0.00001:*] 
         #set cbrange [0.00001:*] 
         
         #set colorbox user origin graph 1.01, graph 0 size 0.01, graph 1 noborder
@@ -262,11 +266,11 @@ tmp_data_v=$(generate_xydata "${valuesv[@]}" "$gridv" "$datatimev" "+%d-%H:%M" "
 # xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000)
 gen_bar_chart "$tmp_data_ey" "kwh_p_y" "kWh / ${month}" "${month}" "kWh" "1000"
 gen_bar_chart "$tmp_data_em" "kwh_p_m" "kWh / ${day}" "${day}" "kWh" "1000"
-# xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000) color_range
-gen_bar_chart2 "$tmp_data_t" "temp_p_h" "${temp}" "${hour}" "°C" "10" "[-10:35]"
-gen_bar_chart2 "$tmp_data_h" "hum_p_h" "${hum}" "${hour}" "%" "1" "[0:100]"
-gen_bar_chart2 "$tmp_data_p" "pow_p_h" "${pow}" "${hour}" "W" "100" "[0:600]"
-gen_bar_chart2 "$tmp_data_v" "vol_p_h" "${vol}" "${hour}" "V" "1000" "[210:240]"
+# xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000) color_range 
+gen_bar_chart2 "$tmp_data_t" "temp_p_h" "${temp}" "${hour}" "°C" "10" "[-10:35]" "[*:*]"
+gen_bar_chart2 "$tmp_data_h" "hum_p_h" "${hum}" "${hour}" "%" "1" "[0:100]" "[*:*]"
+gen_bar_chart2 "$tmp_data_p" "pow_p_h" "${pow}" "${hour}" "W" "100" "[0:600]" "[0.00001:*]"
+gen_bar_chart2 "$tmp_data_v" "vol_p_h" "${vol}" "${hour}" "V" "1000" "[210:240]" "[*:*]"
 
 # show in Alfred
 jq -n --arg name "${devinfo[1]}" --arg ain "${devinfo[2]}" --arg id "${devinfo[3]}" \
