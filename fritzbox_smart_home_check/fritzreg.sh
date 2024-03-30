@@ -133,7 +133,7 @@ gen_bar_chart() {
     
     # format the gnuplot bar chart    
     local gnuplot_commands="
-        set terminal png size 900,200 transparent truecolor enhanced font 'Helvetica,10.5'
+        set terminal png size 900,300 transparent truecolor enhanced font 'Helvetica,10.5'
         set output './images/$name.png'
         set title '$title'
         #set xlabel '$xlabel'
@@ -195,7 +195,7 @@ gen_bar_chart2() {
     
     # format the gnuplot bar chart
     local gnuplot_commands="
-        set terminal png size 900,200 transparent truecolor enhanced font 'Helvetica,10.5'
+        set terminal png size 900,300 transparent truecolor enhanced font 'Helvetica,10.5'
         set output './images/$name.png'
         set title '$title'
         #set xlabel '$xlabel'
@@ -219,8 +219,8 @@ gen_bar_chart2() {
         set format y '%.1f'
         #unset ytics
         unset key
-        set yrange [0.00001:*]
-        set cbrange [0.00001:*] 
+        #set yrange [0.00001:*]
+        #set cbrange [0.00001:*] 
         
         #set colorbox user origin graph 1.01, graph 0 size 0.01, graph 1 noborder
         #set rmargin at screen 0.95
