@@ -220,9 +220,9 @@ gen_bar_chart2() {
         set format y '%.1f'
         #unset ytics
         unset key
-        set autoscale yfix
+        #set autoscale yfix
         set offset 0,0,1,1
-        #set yrange $yrange
+        set yrange $yrange
         #set yrange [0.00001:*] 
         #set cbrange [0.00001:*] 
         
