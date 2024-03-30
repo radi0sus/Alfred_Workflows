@@ -1,6 +1,6 @@
 ### PubChem Retrieval (v2)
 An Alfred (v5.5 or higher) Workflow utilizing the PUG REST, PUG View and Auto-Complete Search Service from 
-[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. 
+[PubChem](https://pubchem.ncbi.nlm.nih.gov) for compounds. The installation of **jq** using **Homebrew**, for example, is required.
 
 1. Run the PubChem keyword (`pc`) or set your own keyword.
 
