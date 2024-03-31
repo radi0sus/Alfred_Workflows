@@ -190,6 +190,7 @@ gen_bar_chart2() {
     local fac=$(($6))
     local cbrange=$7
     local yrange=$8
+    local yoffset=$9
     
     local starttime=$(head -n 1 "$tmp_data" | awk '{print $1}')
     local endtime=$(tail -n 1 "$tmp_data" | awk '{print $1}')
@@ -221,7 +222,7 @@ gen_bar_chart2() {
         #unset ytics
         unset key
         #set autoscale yfix
-        set offset 0,0,1,1
+        set offset 0,0,$yoffset
         set yrange $yrange
         #set yrange [0.00001:*] 
         #set cbrange [0.00001:*] 
@@ -266,11 +267,11 @@ tmp_data_v=$(generate_xydata "${valuesv[@]}" "$gridv" "$datatimev" "+%d-%H:%M" "
 # xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000)
 gen_bar_chart "$tmp_data_ey" "kwh_p_y" "kWh / ${month}" "${month}" "kWh" "1000"
 gen_bar_chart "$tmp_data_em" "kwh_p_m" "kWh / ${day}" "${day}" "kWh" "1000"
-# xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000) color_range 
-gen_bar_chart2 "$tmp_data_t" "temp_p_h" "${temp}" "${hour}" "°C" "10" "[-10:35]" "[*:*]"
-gen_bar_chart2 "$tmp_data_h" "hum_p_h" "${hum}" "${hour}" "%" "1" "[0:100]" "[*:*]"
-gen_bar_chart2 "$tmp_data_p" "pow_p_h" "${pow}" "${hour}" "W" "100" "[0:600]" "[0.00001:*]"
-gen_bar_chart2 "$tmp_data_v" "vol_p_h" "${vol}" "${hour}" "V" "1000" "[210:240]" "[*:*]"
+# xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000) color_range y-autoscale y-offset
+gen_bar_chart2 "$tmp_data_t" "temp_p_h" "${temp}" "${hour}" "°C" "10" "[-10:35]" "[*:*]" "1,1"
+gen_bar_chart2 "$tmp_data_h" "hum_p_h" "${hum}" "${hour}" "%" "1" "[0:100]" "[*:*]" "1,1"
+gen_bar_chart2 "$tmp_data_p" "pow_p_h" "${pow}" "${hour}" "W" "100" "[0:600]" "[0.00001:*]" "0,0"
+gen_bar_chart2 "$tmp_data_v" "vol_p_h" "${vol}" "${hour}" "V" "1000" "[210:240]" "[*:*]" "1,1"
 
 # show in Alfred
 jq -n --arg name "${devinfo[1]}" --arg ain "${devinfo[2]}" --arg id "${devinfo[3]}" \
