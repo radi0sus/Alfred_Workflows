@@ -203,7 +203,7 @@ gen_bar_chart2() {
         #set xlabel '$xlabel'
         set ylabel '$ylabel'
         set xdata time
-        set timefmt '%d-%H:%M' 
+        set timefmt '%y-%m-%d-%H:%M' 
         set format x '%H:%M'
         #set xtics rotate by -45
         #set yrange [:]
@@ -258,10 +258,10 @@ gen_bar_chart2() {
 # values grid datatime (<= see FRITZ!Box documentation) timeval name
 tmp_data_ey=$(generate_xydata "${valuesey[@]}" "$gridey" "$datatimeey" "+%b" "eny")
 tmp_data_em=$(generate_xydata "${valuesem[@]}" "$gridem" "$datatimeem" "+%d" "enm")
-tmp_data_t=$(generate_xydata "${valuest[@]}" "$gridt" "$datatimet" "+%d-%H:%M" "temp")
-tmp_data_h=$(generate_xydata "${valuesh[@]}" "$gridh" "$datatimeh" "+%d-%H:%M" "hum")
-tmp_data_p=$(generate_xydata "${valuesp[@]}" "$gridp" "$datatimep" "+%d-%H:%M" "pow")
-tmp_data_v=$(generate_xydata "${valuesv[@]}" "$gridv" "$datatimev" "+%d-%H:%M" "vol")
+tmp_data_t=$(generate_xydata "${valuest[@]}" "$gridt" "$datatimet" "+%y-%m-%d-%H:%M" "temp")
+tmp_data_h=$(generate_xydata "${valuesh[@]}" "$gridh" "$datatimeh" "+%y-%m-%d-%H:%M" "hum")
+tmp_data_p=$(generate_xydata "${valuesp[@]}" "$gridp" "$datatimep" "+%y-%m-%d-%H:%M" "pow")
+tmp_data_v=$(generate_xydata "${valuesv[@]}" "$gridv" "$datatimev" "+%y-%m-%d-%H:%M" "vol")
 
 # plot x,y data with gnuplot
 # xy_data name_of_the_plot.png title xlabel ylabel division_factor (Wh > kWh = 1000)
