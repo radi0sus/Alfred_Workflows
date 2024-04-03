@@ -18,7 +18,7 @@ An Alfred Workflow (v5.5 or higher) showing information about FRITZ!DECT Smart H
 
 6. Press `↩` (Enter) to view charts illustrating temporal trends of temperature, humidity, energy, power, and voltage (depending on the device type).
 
-![Statistics](images/3w.png)
+![Statistics](images/3wb.png)
 
 ##### Additional notes
 
