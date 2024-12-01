@@ -166,7 +166,7 @@ eninfo=$(get_prop2 "powermeter" "energy" "1000" "1" "E: " "kWh")
 swinfo=$(get_prop_bin2 "simpleonoff" "state")
 
 # assign icons for specific devices
-icon_list=$(get_dev_pic 200 201 210 301 440)
+icon_list=$(get_dev_pic 200 201 210 301 302 440)
 
 # show in Alfred
 json_output=$(paste <(echo "$devname") <(echo "$devain") <(echo "$devid") \
